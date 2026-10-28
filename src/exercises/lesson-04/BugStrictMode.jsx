@@ -7,9 +7,12 @@ export default function BugStrictMode() {
   const [count, setCount] = useState(0);
 
   useEffect(() => {
-    setInterval(() => {
+    const timerId = setInterval(() => {
       setCount((c) => c + 1);
     }, 1000);
+    return () => {
+      clearInterval(timerId);
+    };
   }, []);
 
   return (
@@ -20,4 +23,9 @@ export default function BugStrictMode() {
   );
 }
 
-// Write your explanation of how StrictMode helps us catch this bug
+// Explanation:
+// The problem was that setInterval was creating a timer without
+// cleaning it up. React StrictMode helped reveal this issue by
+// running the effect an extra time during development.
+// I fixed it by adding a cleanup function using clearInterval,
+// so the counter increases by 1 every second.

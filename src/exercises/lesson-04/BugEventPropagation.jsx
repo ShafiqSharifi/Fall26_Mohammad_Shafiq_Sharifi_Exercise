@@ -6,7 +6,8 @@ export default function BugEventPropagation() {
     alert("RED BOX CLICKED ❌ Don't show me!");
   }
 
-  function handleInnerClick() {
+  function handleInnerClick(event) {
+    event.stopPropagation();
     alert('Button Clicked ✅');
   }
 
@@ -22,3 +23,10 @@ export default function BugEventPropagation() {
     </>
   );
 }
+
+
+// Explanation:
+// The problem was that clicking the inner button also triggered
+// the parent div's click event because of event bubbling.
+// I fixed it by using event.stopPropagation() inside
+// handleInnerClick so only the button's alert appears.
