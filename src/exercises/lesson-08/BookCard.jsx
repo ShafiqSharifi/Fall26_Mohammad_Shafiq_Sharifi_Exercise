@@ -1,3 +1,5 @@
+
+import { memo } from 'react';
 import {
   useRenderCounter,
   RenderCounter,
@@ -14,22 +16,34 @@ function BookCard({ book, isFavorite, onToggleFavorite }) {
         count={count}
         className={styles.renderCounter}
       />
+
       <h3 className={styles.cardTitle}>{book.title}</h3>
+
       <p className={styles.cardAuthor}>
         by {book.author} ({book.publishYear})
       </p>
-      <p className={styles.cardGenres}>Genres: {book.genres.join(', ')}</p>
-      <p className={styles.cardDetails}>
-        Rating: ⭐ {book.rating} | Pages: {book.pages} | Price: ${book.price}
+
+      <p className={styles.cardGenres}>
+        Genres: {book.genres.join(', ')}
       </p>
+
+      <p className={styles.cardDetails}>
+        Rating: ⭐ {book.rating} | Pages: {book.pages} |
+        Price: ${book.price}
+      </p>
+
       <button
         onClick={() => onToggleFavorite(book.id)}
-        className={`${styles.favoriteButton} ${isFavorite ? styles.remove : styles.add}`}
+        className={`${styles.favoriteButton} ${
+          isFavorite ? styles.remove : styles.add
+        }`}
       >
-        {isFavorite ? '💔 Remove from Favorites' : '❤️ Add to Favorites'}
+        {isFavorite
+          ? '💔 Remove from Favorites'
+          : '❤️ Add to Favorites'}
       </button>
     </div>
   );
 }
 
-export default BookCard;
+export default memo(BookCard);
